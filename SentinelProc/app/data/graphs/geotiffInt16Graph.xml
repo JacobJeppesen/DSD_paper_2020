@@ -1,0 +1,191 @@
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${input}</file>
+    </parameters>
+  </node>
+  <node id="LinearToFromdB">
+    <operator>LinearToFromdB</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands/>
+    </parameters>
+  </node>
+  <node id="BandMaths">
+    <operator>BandMaths</operator>
+    <sources>
+      <sourceProduct refid="LinearToFromdB"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <targetBands>
+        <targetBand>
+          <name>Sigma0_VV_db_bandmath</name>
+          <type>float32</type>
+          <expression>Sigma0_VV_db * 1</expression>
+          <description/>
+          <unit/>
+          <noDataValue>0.0</noDataValue>
+        </targetBand>
+      </targetBands>
+      <variables/>
+    </parameters>
+  </node>
+  <node id="Convert-Datatype">
+    <operator>Convert-Datatype</operator>
+    <sources>
+      <sourceProduct refid="BandMaths"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>Sigma0_VV_db_bandmath</sourceBands>
+      <targetDataType>int16</targetDataType>
+      <targetScalingStr>Truncate</targetScalingStr>
+      <targetNoDataValue>-32768.0</targetNoDataValue>
+    </parameters>
+  </node>
+  <node id="LinearToFromdB(2)">
+    <operator>LinearToFromdB</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands/>
+    </parameters>
+  </node>
+  <node id="BandMaths(2)">
+    <operator>BandMaths</operator>
+    <sources>
+      <sourceProduct refid="LinearToFromdB(2)"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <targetBands>
+        <targetBand>
+          <name>Sigma0_VH_db_bandmath</name>
+          <type>float32</type>
+          <expression>Sigma0_VH_db * 1</expression>
+          <description/>
+          <unit/>
+          <noDataValue>0.0</noDataValue>
+        </targetBand>
+      </targetBands>
+      <variables/>
+    </parameters>
+  </node>
+  <node id="BandMaths(3)">
+    <operator>BandMaths</operator>
+    <sources>
+      <sourceProduct refid="LinearToFromdB(2)"/>
+      <sourceProduct.1 refid="LinearToFromdB"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <targetBands>
+        <targetBand>
+          <name>Sigma0_VV-VH_db_bandmath</name>
+          <type>float32</type>
+          <expression>($1.Sigma0_VV_db - $1.Sigma0_VH_db) * 1</expression>
+          <description/>
+          <unit/>
+          <noDataValue>0.0</noDataValue>
+        </targetBand>
+      </targetBands>
+      <variables/>
+    </parameters>
+  </node>
+  <node id="Convert-Datatype(2)">
+    <operator>Convert-Datatype</operator>
+    <sources>
+      <sourceProduct refid="BandMaths(2)"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>Sigma0_VH_db_bandmath</sourceBands>
+      <targetDataType>int16</targetDataType>
+      <targetScalingStr>Truncate</targetScalingStr>
+      <targetNoDataValue>-32768.0</targetNoDataValue>
+    </parameters>
+  </node>
+  <node id="Convert-Datatype(3)">
+    <operator>Convert-Datatype</operator>
+    <sources>
+      <sourceProduct refid="BandMaths(3)"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>Sigma0_VV-VH_db_bandmath</sourceBands>
+      <targetDataType>int16</targetDataType>
+      <targetScalingStr>Truncate</targetScalingStr>
+      <targetNoDataValue>-32768.0</targetNoDataValue>
+    </parameters>
+  </node>
+  <node id="Write(2)">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Convert-Datatype(2)"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_vh}</file>
+      <formatName>GeoTIFF-BigTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="Write(3)">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Convert-Datatype(3)"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_vv-vh}</file>
+      <formatName>GeoTIFF-BigTIFF</formatName>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Convert-Datatype"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>${output_vv}</file>
+      <formatName>GeoTIFF-BigTIFF</formatName>
+    </parameters>
+  </node>
+  <applicationData id="Presentation">
+    <Description/>
+    <node id="Read">
+            <displayPosition x="37.0" y="134.0"/>
+    </node>
+    <node id="LinearToFromdB">
+      <displayPosition x="143.0" y="130.0"/>
+    </node>
+    <node id="BandMaths">
+      <displayPosition x="379.0" y="135.0"/>
+    </node>
+    <node id="Convert-Datatype">
+      <displayPosition x="535.0" y="133.0"/>
+    </node>
+    <node id="LinearToFromdB(2)">
+      <displayPosition x="141.0" y="191.0"/>
+    </node>
+    <node id="BandMaths(2)">
+      <displayPosition x="378.0" y="196.0"/>
+    </node>
+    <node id="BandMaths(3)">
+      <displayPosition x="328.0" y="267.0"/>
+    </node>
+    <node id="Convert-Datatype(2)">
+      <displayPosition x="526.0" y="194.0"/>
+    </node>
+    <node id="Convert-Datatype(3)">
+      <displayPosition x="524.0" y="265.0"/>
+    </node>
+    <node id="Write(2)">
+      <displayPosition x="713.0" y="193.0"/>
+    </node>
+    <node id="Write(3)">
+      <displayPosition x="718.0" y="266.0"/>
+    </node>
+    <node id="Write">
+            <displayPosition x="712.0" y="130.0"/>
+    </node>
+  </applicationData>
+</graph>

@@ -1,0 +1,5 @@
+# Exclude data folders
+app/data/*
+!app/data/reference
+!app/data/geojson
+!app/data/graphs

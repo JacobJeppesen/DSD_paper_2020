@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Files to be ignored
+/data/processed/FieldPolygons2019_stats.nc
+/SentinelProc/app/data/reference/

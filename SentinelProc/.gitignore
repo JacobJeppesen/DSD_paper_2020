@@ -1,0 +1,16 @@
+# General Python .gitignore lines
+# https://stackoverflow.com/questions/3719243/best-practices-for-adding-gitignore-file-for-python-projects
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Exclude PyCharm folder
+.idea
+
+# Exclude data folders
+app/data/*
+!app/data/geojson
+!app/data/graphs
+
+# Exclude folder created by running the ESA SNAP toolbox
+app/?
