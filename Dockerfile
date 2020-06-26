@@ -48,4 +48,10 @@ RUN pip --no-cache-dir install -r /tmp/requirements.txt
 # ------------------ CONFIGURE THE LAST THINGS ------------------
 # Copy the code and set the working
 COPY . /home/jovyan/work
+
+# Change owner of the files and folders to the jovyan user
+USER root
+RUN chown -R jovyan:users /home/jovyan/work/
+USER jovyan
+
 WORKDIR /home/jovyan/work
