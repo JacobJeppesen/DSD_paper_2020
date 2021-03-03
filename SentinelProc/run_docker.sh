@@ -1,7 +1,7 @@
 #docker run --rm -it -v /mnt/au_dfs/ST_FC-WP1/:/data/ jhj/sentinelproc \
 docker run --rm -it -v $PWD:/data/ jacobjeppesen/sentinelproc \
-	--username jacobjeppesen \
-	--password sentinel \
+	--username username \
+	--password password \
 	--data_directory /data/sentinelproc \
 	--geojson denmark_without_bornholm \
 	--satellite s1 \
