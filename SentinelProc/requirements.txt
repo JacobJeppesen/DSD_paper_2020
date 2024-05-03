@@ -1,5 +1,5 @@
 sentinelsat==0.13
-tqdm==4.32.2
+tqdm==4.66.3
 pathlib==1.0.1
 absl-py==0.7.1
 duallog==0.20
