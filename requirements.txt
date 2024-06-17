@@ -5,7 +5,7 @@ Geopandas==0.7.0
 rasterstats==0.14.0
 xarray==0.15.1
 Seaborn==0.9.0
-scikit-learn==0.22.2
+scikit-learn==1.5.0
 pycm==2.7
 ipython-autotime==0.1
 h5netcdf==0.8.0
